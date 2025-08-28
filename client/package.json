@@ -14,6 +14,7 @@
     "@editorjs/header": "^2.8.8",
     "@editorjs/image": "^2.10.3",
     "@editorjs/list": "^2.0.8",
+    "@iconify-json/material-symbols": "^1.2.33",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@tanstack/react-table": "^8.21.3",
@@ -27,6 +28,7 @@
     "react-hot-toast": "^2.5.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router": "^7.5.3",
+    "swiper": "^11.2.10",
     "tailwindcss-intersect": "^2.2.0",
     "tailwindcss-motion": "^1.1.1",
     "zustand": "^5.0.5"

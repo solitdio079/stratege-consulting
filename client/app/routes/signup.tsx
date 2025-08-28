@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { Link, useFetcher, useNavigate } from "react-router"
-import toast, {Toaster} from "react-hot-toast"
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useFetcher, useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
 import type { Route } from "./+types/signup";
 import { serverUrl } from "~/utils/serverUrl";
+
+import logo from "../components/logo.png";
 
 type Inputs = {
   fullName: string;
@@ -11,34 +13,30 @@ type Inputs = {
   email: string;
 };
 
-export async function clientAction({request}:Route.ClientActionArgs){
-    const formData = await request.formData()
+export async function clientAction({ request }: Route.ClientActionArgs) {
+  const formData = await request.formData();
 
-    try {
-        const req = await fetch(serverUrl+"/users/", {
-            method:"POST",
-            body: formData
-        })
-        const response = await req.json()
-        return response
-        
-    } catch (error) {
-        return {error}
-    }
-
+  try {
+    const req = await fetch(serverUrl + "/users/", {
+      method: "POST",
+      body: formData,
+    });
+    const response = await req.json();
+    return response;
+  } catch (error) {
+    return { error };
+  }
 }
 
-
-
 export default function Signup() {
-    const fetcher = useFetcher()
+  const fetcher = useFetcher();
   const {
     register,
     trigger,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [initial, setInitial] = useState(true);
 
@@ -46,18 +44,17 @@ export default function Signup() {
     const toastOptions = { duration: 5000 };
     if (fetcher.data && !fetcher.data.error) {
       const user = fetcher.data;
-      toast.success("Succes", toastOptions); 
-      navigate("/login")
-    }else if(fetcher.data && fetcher.data.error) {
-        toast.error(fetcher.data.error, toastOptions);
-      }
-
-    if (initial) {
-        trigger();
-        setInitial(false);
+      toast.success("Succes", toastOptions);
+      navigate("/login");
+    } else if (fetcher.data && fetcher.data.error) {
+      toast.error(fetcher.data.error, toastOptions);
     }
 
-  })
+    if (initial) {
+      trigger();
+      setInitial(false);
+    }
+  });
 
   return (
     <>
@@ -108,28 +105,28 @@ export default function Signup() {
           </div>
           <div className="bg-base-100 shadow-base-300/20 z-1 w-full space-y-6 rounded-xl p-6 shadow-md sm:min-w-md lg:p-8">
             <div className="flex items-center gap-3">
-              <img
-                src="https://cdn.flyonui.com/fy-assets//logo/logo.png"
-                className="size-8"
-                alt="brand-logo"
-              />
-              <h2 className="text-base-content text-xl font-bold">FlyonUI</h2>
+              <img src={logo} className="size-8" alt="brand-logo" />
             </div>
             <div>
               <h3 className="text-base-content mb-1.5 text-2xl font-semibold">
-                Sign in to FlyonUI
+                Connectez-vous sur Stratege Consulting
               </h3>
               <p className="text-base-content/80">
-                Ship Faster and Focus on Growth.
+                Nous transformons vos défis fiscaux et stratégiques en leviers
+                de croissance
               </p>
             </div>
 
             <div className="space-y-4">
-              <fetcher.Form className="mb-4 space-y-4" method="post" encType="multipart/form-data">
-                <Toaster/>
+              <fetcher.Form
+                className="mb-4 space-y-4"
+                method="post"
+                encType="multipart/form-data"
+              >
+                <Toaster />
                 <div>
                   <label className="label-text" htmlFor="userName">
-                    Full Name*
+                    Nom Complet *
                   </label>
                   <input
                     {...register("fullName", {
@@ -138,13 +135,12 @@ export default function Signup() {
                     })}
                     onInput={() => trigger("fullName")}
                     className={
-                        errors.fullName
-                          ? "input border-red-500"
-                          : "input border-green-500"
-                      }
+                      errors.fullName
+                        ? "input border-red-500"
+                        : "input border-green-500"
+                    }
                     type="text"
                     placeholder="Enter your name"
-                   
                     name="fullName"
                     id="userName"
                     required
@@ -160,10 +156,10 @@ export default function Signup() {
                 </div>
                 <div>
                   <label className="label-text" htmlFor="userEmail">
-                    Email address*
+                    Email *
                   </label>
                   <input
-                   onInput={() => trigger("email")}
+                    onInput={() => trigger("email")}
                     {...register("email", {
                       required: "This field is required",
                       minLength: { value: 5, message: "Minimum 5 characteres" },
@@ -177,9 +173,9 @@ export default function Signup() {
                     type="email"
                     placeholder="Enter your email address"
                     className={
-                        errors.email
-                          ? "input border-red-500"
-                          : "input border-green-500"
+                      errors.email
+                        ? "input border-red-500"
+                        : "input border-green-500"
                     }
                     name="email"
                     id="userEmail"
@@ -196,10 +192,10 @@ export default function Signup() {
                 </div>
                 <div>
                   <label className="label-text" htmlFor="userAvatar">
-                    Avatar*
+                    Avatar *
                   </label>
                   <input
-                     onInput={() => trigger("avatar")}
+                    onInput={() => trigger("avatar")}
                     type="file"
                     id="userAvatar"
                     {...register("avatar", {
@@ -225,20 +221,20 @@ export default function Signup() {
                 </div>
 
                 <button className="btn btn-lg btn-primary btn-gradient btn-block">
-                {fetcher.state === "idle" ? (
-              "Sign Up"
-            ) : (
-              <span className="loading loading-ball"></span>
-            )}{" "}
+                  {fetcher.state === "idle" ? (
+                    "S'inscrir"
+                  ) : (
+                    <span className="loading loading-ball"></span>
+                  )}{" "}
                 </button>
               </fetcher.Form>
               <p className="text-base-content/80 mb-4 text-center">
-               Already have an account?
+                Vous avez deja un compte?
                 <Link
                   to="/login"
                   className="link link-animated link-primary font-normal"
                 >
-                  Login
+                  Connectez-vous
                 </Link>
               </p>
             </div>

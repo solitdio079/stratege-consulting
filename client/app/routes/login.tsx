@@ -10,7 +10,7 @@ import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import { useUserStore } from "~/utils/stateStore";
 import type { S } from "node_modules/react-router/dist/development/route-data-ByAYLHuM.mjs";
 
-
+import logo from "../components/logo.png"
 
 
 const app = initializeApp(firebaseConfig);
@@ -148,7 +148,7 @@ export default function Login() {
           <div className="bg-base-100 shadow-base-300/20 z-1 w-full space-y-6 rounded-xl p-6 shadow-md sm:min-w-md lg:p-8">
             <div className="flex items-center gap-3">
               <img
-                src="https://cdn.flyonui.com/fy-assets//logo/logo.png"
+                src={logo}
                 className="size-8"
                 alt="brand-logo"
               />
@@ -173,7 +173,7 @@ export default function Login() {
                
                 <div>
                   <label className="label-text" htmlFor="userEmail">
-                    Email address*
+                    Email *
                   </label>
                   <input
                     onInput={() => trigger("email")}
@@ -211,19 +211,19 @@ export default function Login() {
 
                 <button className="btn btn-lg btn-primary btn-gradient btn-block">
                   {fetcher.state === "idle" ? (
-                    "Login"
+                    "Se connecter"
                   ) : (
                     <span className="loading loading-ball"></span>
                   )}{" "}
                 </button>
               </fetcher.Form>
               <p className="text-base-content/80 mb-4 text-center">
-                New on our platform?
+                Nouveau sur notre platform?
                 <Link
                   to="/signup"
                   className="link link-animated link-primary font-normal"
                 >
-                  Create an account
+                  Creer un compte
                 </Link>
               </p>
             </div>
